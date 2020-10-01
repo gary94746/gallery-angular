@@ -18,8 +18,9 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "ngx-build-plus:browser",
           "options": {
+						"extraWebpackConfig": "webpack.config.js",
             "outputPath": "dist/gallery-fronted",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -42,7 +43,7 @@
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.prod.ts"
                 }
-              ],
+              ]	,
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -67,9 +68,10 @@
           }
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "ngx-build-plus:dev-server",
           "options": {
-            "browserTarget": "gallery-fronted:build"
+            "browserTarget": "gallery-fronted:build",
+						"extraWebpackConfig": "webpack.config.js"
           },
           "configurations": {
             "production": {
@@ -84,8 +86,9 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "ngx-build-plus:karma",
           "options": {
+						"extraWebpackConfig": "webpack.config.js",
             "main": "src/test.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
@@ -126,6 +129,7 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "gallery-fronted"
 }
