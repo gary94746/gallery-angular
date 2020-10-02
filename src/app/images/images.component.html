@@ -1,0 +1,37 @@
+<ul
+  *ngIf="$photos | async as photos"
+  class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-4 m-5 justify-items-center"
+>
+  <li
+    *ngFor="let image of photos.data"
+    class="max-w-sm rounded overflow-hidden shadow-lg mb-4 bg-white"
+  >
+    <img src="{{ getUrl(image.id, '350') }}" class="w-full" />
+    <div class="px-6 py-4">
+      <div class="font-bold text-xl mb-2 capitalize">{{ image.name }}</div>
+      <p class="text-gray-700 text-base">
+        {{ image.description }}
+      </p>
+    </div>
+    <div class="px-6 pt-4 pb-2">
+      <span
+        *ngFor="let category of image.categories"
+        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+        >#{{ category.category }}</span
+      >
+    </div>
+    <div class="px-6 pt-4 pb-2 flex flex-row-reverse">
+      <button
+        class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold rounded p-2"
+      >
+        <svg
+          class="fill-current w-4 h-4"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 20 20"
+        >
+          <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
+        </svg>
+      </button>
+    </div>
+  </li>
+</ul>
