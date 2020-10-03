@@ -13,7 +13,7 @@ export class PhotoService {
     );
   }
 
-  imageUrl(id: string, size: string = '350') {
+  imageUrl(id: string, size: string = '250') {
     return `http://localhost:3000/photo/resize?id=${id}&size=${size}`;
   }
 }
