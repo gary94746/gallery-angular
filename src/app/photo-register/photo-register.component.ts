@@ -17,7 +17,14 @@ export class PhotoRegisterComponent implements OnInit {
     this.$categories = this.photoService.getCategories();
   }
 
-  handleFileInput(file: any) {
-    this.label = file[0].name;
+  handleFileInput(files: FileList) {
+    const fileName = files[0].name;
+    const lastDot = fileName.lastIndexOf('.');
+    const fileExtension = fileName.slice(lastDot, fileName.length);
+    const fileNameTrimed = fileName.slice(
+      0,
+      fileName.length > 30 ? 20 : fileName.length
+    );
+    this.label = fileNameTrimed + fileExtension;
   }
 }
