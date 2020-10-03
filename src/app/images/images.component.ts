@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { tap, take } from 'rxjs/operators';
 import { PhotoService } from '../photo.service';
 
 @Component({
@@ -8,15 +9,39 @@ import { PhotoService } from '../photo.service';
   styleUrls: ['./images.component.scss'],
 })
 export class ImagesComponent implements OnInit {
-  $photos: Observable<any>;
+  images = new BehaviorSubject([]);
+  finish: boolean;
+  page = 0;
 
   constructor(private readonly photoService: PhotoService) {}
 
   ngOnInit() {
-    this.$photos = this.photoService.getAll();
+    this.getImages();
   }
 
   getUrl(id: string, size: string) {
     return this.photoService.imageUrl(id, size);
+  }
+
+  onScroll() {
+    if (this.finish) return;
+    this.getImages();
+  }
+
+  getImages() {
+    this.photoService
+      .getAll(++this.page, 10)
+      .pipe(
+        tap((images: any) => {
+          const ppreviousImages = this.images.getValue();
+          this.images.next([...ppreviousImages, ...images.data]);
+
+          if (this.images.getValue().length === images.totalCount) {
+            this.finish = true;
+          }
+        }),
+        take(1)
+      )
+      .subscribe();
   }
 }

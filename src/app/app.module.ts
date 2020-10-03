@@ -7,10 +7,21 @@ import { PhotoRegisterComponent } from './photo-register/photo-register.componen
 import { HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ImagesComponent } from './images/images.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
-  declarations: [AppComponent, PhotoRegisterComponent, NavbarComponent, ImagesComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  declarations: [
+    AppComponent,
+    PhotoRegisterComponent,
+    NavbarComponent,
+    ImagesComponent,
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    InfiniteScrollModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

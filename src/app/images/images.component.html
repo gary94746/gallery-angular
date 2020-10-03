@@ -1,9 +1,8 @@
 <ul
-  *ngIf="$photos | async as photos"
   class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-4 m-5 justify-items-center"
 >
   <li
-    *ngFor="let image of photos.data"
+    *ngFor="let image of images | async as photos"
     class="max-w-sm rounded overflow-hidden shadow-lg mb-4 bg-white"
   >
     <img src="{{ getUrl(image.id, '350') }}" class="w-full" />
@@ -35,3 +34,21 @@
     </div>
   </li>
 </ul>
+<div
+  *ngIf="!finish"
+  class="flex justify-center m-5 bg-blue-200 p-5 font-bold bg-opacity-75"
+>
+  Loading...
+</div>
+<div
+  *ngIf="finish"
+  class="flex justify-center m-5 bg-yellow-200 p-5 font-bold bg-opacity-75"
+>
+  There's not more elements to display
+</div>
+<div
+  infiniteScroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="1000"
+  (scrolled)="onScroll()"
+></div>
