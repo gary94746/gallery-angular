@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PhotoService } from '../photo.service';
 import { Observable } from 'rxjs';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-photo-register',
@@ -11,11 +12,17 @@ export class PhotoRegisterComponent implements OnInit {
   $categories: Observable<any>;
   label: string = '';
   imgURL: string | ArrayBuffer;
+  form = new FormGroup({
+    name: new FormControl('', [Validators.required]),
+    altName: new FormControl('', Validators.required),
+    description: new FormControl('', Validators.required),
+  });
 
   constructor(private readonly photoService: PhotoService) {}
 
   ngOnInit() {
     this.$categories = this.photoService.getCategories();
+    console.log(this.form.controls.name.setErrors(null));
   }
 
   handleFileInput(files: FileList) {
@@ -33,5 +40,13 @@ export class PhotoRegisterComponent implements OnInit {
     reader.onload = (_event) => {
       this.imgURL = reader.result;
     };
+  }
+
+  clear() {
+    this.form.reset();
+  }
+
+  onSubmit() {
+    alert('Submit');
   }
 }

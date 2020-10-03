@@ -9,6 +9,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { ImagesComponent } from './images/images.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
     AppRoutingModule,
     HttpClientModule,
     InfiniteScrollModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
