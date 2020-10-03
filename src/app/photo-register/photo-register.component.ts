@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 export class PhotoRegisterComponent implements OnInit {
   $categories: Observable<any>;
   label: string = '';
+  imgURL: string | ArrayBuffer;
 
   constructor(private readonly photoService: PhotoService) {}
 
@@ -18,13 +19,19 @@ export class PhotoRegisterComponent implements OnInit {
   }
 
   handleFileInput(files: FileList) {
+    const reader = new FileReader();
     const fileName = files[0].name;
     const lastDot = fileName.lastIndexOf('.');
     const fileExtension = fileName.slice(lastDot, fileName.length);
-    const fileNameTrimed = fileName.slice(
-      0,
-      fileName.length > 30 ? 20 : fileName.length
-    );
-    this.label = fileNameTrimed + fileExtension;
+
+    this.label =
+      fileName.length > 30
+        ? fileName.slice(0, 15) + '---' + fileExtension
+        : fileName;
+
+    reader.readAsDataURL(files[0]);
+    reader.onload = (_event) => {
+      this.imgURL = reader.result;
+    };
   }
 }
