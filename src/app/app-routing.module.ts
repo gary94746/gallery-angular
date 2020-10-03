@@ -3,8 +3,13 @@ import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { PhotoRegisterComponent } from './photo-register/photo-register.component';
 import { ImagesComponent } from './images/images.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 const routes: Routes = [
+  {
+    path: '',
+    component: ImagesComponent,
+  },
   {
     path: 'home',
     component: ImagesComponent,
@@ -12,6 +17,10 @@ const routes: Routes = [
   {
     path: 'register',
     component: PhotoRegisterComponent,
+  },
+  {
+    path: '**',
+    component: NotFoundComponent,
   },
 ];
 

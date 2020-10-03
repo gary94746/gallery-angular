@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ImagesComponent } from './images/images.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     PhotoRegisterComponent,
     NavbarComponent,
     ImagesComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
