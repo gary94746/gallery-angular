@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-photo-register',
@@ -14,26 +15,31 @@ export class PhotoRegisterComponent implements OnInit {
   $categories: Observable<any>;
   label: string = '';
   imgURL: string | ArrayBuffer;
-  form = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.minLength(10)]),
-    alt_description: new FormControl('', [
-      Validators.required,
-      Validators.minLength(10),
-    ]),
-    description: new FormControl('', [
-      Validators.required,
-      Validators.minLength(10),
-    ]),
-    photo: new FormControl('', Validators.required),
-    categories: new FormArray([]),
-  });
-
+  form: FormGroup;
   file: File;
 
   constructor(
     private readonly photoService: PhotoService,
-    private readonly router: Router
-  ) {}
+    private readonly router: Router,
+    private readonly toastr: ToastrService
+  ) {
+    this.form = new FormGroup({
+      name: new FormControl('', [
+        Validators.required,
+        Validators.minLength(10),
+      ]),
+      alt_description: new FormControl('', [
+        Validators.required,
+        Validators.minLength(10),
+      ]),
+      description: new FormControl('', [
+        Validators.required,
+        Validators.minLength(10),
+      ]),
+      photo: new FormControl('', Validators.required),
+      categories: new FormArray([]),
+    });
+  }
 
   ngOnInit() {
     this.$categories = this.photoService.getCategories().pipe(
@@ -85,6 +91,7 @@ export class PhotoRegisterComponent implements OnInit {
     this.form.reset();
     this.imgURL = '';
     this.label = '';
+    this.toastr.info('Fields are clear', 'Clear');
   }
 
   onSubmit() {
@@ -92,14 +99,18 @@ export class PhotoRegisterComponent implements OnInit {
       (e: any) => {
         this.photoService.uploadImage(this.file, e.id).subscribe(
           () => {
-            alert('Success');
+            this.toastr.success('Succesfully upload', 'Upload');
 
             this.router.navigate(['/']);
           },
-          () => alert('Error')
+          () => {
+            this.toastr.warning('Image was not upload', 'Error');
+          }
         );
       },
-      () => alert('error')
+      () => {
+        this.toastr.warning('Image was not upload', 'Error');
+      }
     );
   }
 }
