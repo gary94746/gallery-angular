@@ -17,6 +17,7 @@ export class PhotoRegisterComponent implements OnInit {
     name: new FormControl('', [Validators.required]),
     altName: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required),
+    photo: new FormControl('', Validators.required),
     categories: new FormArray([]),
   });
 
@@ -24,10 +25,8 @@ export class PhotoRegisterComponent implements OnInit {
 
   ngOnInit() {
     this.$categories = this.photoService.getCategories().pipe(
-      tap((elements: any[]) => {
-        elements.forEach((element) =>
-          this.categories.push(new FormControl(''))
-        );
+      tap((categories: any[]) => {
+        categories.forEach(() => this.categories.push(new FormControl('')));
       })
     );
   }
@@ -40,22 +39,42 @@ export class PhotoRegisterComponent implements OnInit {
     const reader = new FileReader();
     const fileName = files[0].name;
     const lastDot = fileName.lastIndexOf('.');
-    const fileExtension = fileName.slice(lastDot, fileName.length);
+    const fileExtension = fileName.slice(lastDot + 1, fileName.length);
 
+    if (!this.isImage(fileExtension)) {
+      alert('Only images are allowed');
+      return;
+    }
+
+    // change label, if filename is too long
     this.label =
       fileName.length > 30
-        ? fileName.slice(0, 15) + '---' + fileExtension
+        ? fileName.slice(0, 15) + '---.' + fileExtension
         : fileName;
 
+    // read as url and setup the selected image
     reader.readAsDataURL(files[0]);
     reader.onload = (_event) => {
       this.imgURL = reader.result;
     };
   }
 
-  clear() {
-    this.form.reset();
+  isImage(fileExtension: string) {
+    return (
+      fileExtension === 'png' ||
+      fileExtension === 'gif' ||
+      fileExtension === 'jpeg' ||
+      fileExtension === 'jpg'
+    );
   }
 
-  onSubmit() {}
+  clear() {
+    this.form.reset();
+    this.imgURL = '';
+    this.label = '';
+  }
+
+  onSubmit() {
+    console.log(this.form.value);
+  }
 }
