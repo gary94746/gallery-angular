@@ -170,12 +170,21 @@ Put your photo description here!</textarea
         </div>
         <div class="md:w-2/3">
           <div class="grid grid-cols-2">
-            <div *ngFor="let category of $categories | async">
-              <label class="inline-flex items-center">
+            <div *ngFor="let category of $categories | async; index as i">
+              <label
+                class="inline-flex items-center"
+                formArrayName="categories"
+              >
                 <input
                   type="checkbox"
                   class="ml-2"
-                  value="{{ category.id }}"
+                  [formControlName]="i"
+                  [value]="category.id"
+                  (change)="
+                    $event.target.checked
+                      ? categories.controls[i].patchValue($event.target.value)
+                      : categories.controls[i].patchValue('')
+                  "
                 /><span class="ml-2 text-gray-700 capitalize">{{
                   category.category
                 }}</span>

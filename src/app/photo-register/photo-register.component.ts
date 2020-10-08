@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PhotoService } from '../photo.service';
 import { Observable } from 'rxjs';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-photo-register',
@@ -16,13 +17,23 @@ export class PhotoRegisterComponent implements OnInit {
     name: new FormControl('', [Validators.required]),
     altName: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required),
+    categories: new FormArray([]),
   });
 
   constructor(private readonly photoService: PhotoService) {}
 
   ngOnInit() {
-    this.$categories = this.photoService.getCategories();
-    console.log(this.form.controls.name.setErrors(null));
+    this.$categories = this.photoService.getCategories().pipe(
+      tap((elements: any[]) => {
+        elements.forEach((element) =>
+          this.categories.push(new FormControl(''))
+        );
+      })
+    );
+  }
+
+  get categories() {
+    return this.form.get('categories') as FormArray;
   }
 
   handleFileInput(files: FileList) {
@@ -46,7 +57,5 @@ export class PhotoRegisterComponent implements OnInit {
     this.form.reset();
   }
 
-  onSubmit() {
-    alert('Submit');
-  }
+  onSubmit() {}
 }
