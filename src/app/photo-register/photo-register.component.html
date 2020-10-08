@@ -66,20 +66,21 @@
             id="inline-full-name"
             type="text"
             value="yosemite_mountain"
-            formControlName="altName"
+            formControlName="alt_description"
             [ngClass]="{
               'bg-red-200':
-                (form.controls.altName.dirty || form.controls.touched) &&
-                form.controls.altName.invalid &&
-                form.controls.altName.errors.required
+                (form.controls.alt_description.dirty ||
+                  form.controls.touched) &&
+                form.controls.alt_description.invalid &&
+                form.controls.alt_description.errors.required
             }"
           />
 
           <span
             *ngIf="
-              (form.controls.altName.dirty || form.controls.touched) &&
-              form.controls.altName.invalid &&
-              form.controls.altName.errors.required
+              (form.controls.alt_description.dirty || form.controls.touched) &&
+              form.controls.alt_description.invalid &&
+              form.controls.alt_description.errors.required
             "
             class="text-xs text-red-500"
           >

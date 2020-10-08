@@ -20,4 +20,21 @@ export class PhotoService {
   getCategories() {
     return this.httpService.get(`http://localhost:3000/category`);
   }
+
+  saveImage(image) {
+    const ids = image.categories
+      .filter((id) => id !== '')
+      .map((category) => {
+        return { id: category };
+      });
+
+    return this.httpService.post(this.endPoint, { ...image, categories: ids });
+  }
+
+  uploadImage(file: any, photoId: string) {
+    const formData = new FormData();
+    formData.append('image', file);
+
+    return this.httpService.post(`${this.endPoint}${photoId}`, formData);
+  }
 }

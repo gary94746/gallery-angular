@@ -15,11 +15,13 @@ export class PhotoRegisterComponent implements OnInit {
   imgURL: string | ArrayBuffer;
   form = new FormGroup({
     name: new FormControl('', [Validators.required]),
-    altName: new FormControl('', Validators.required),
+    alt_description: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required),
     photo: new FormControl('', Validators.required),
     categories: new FormArray([]),
   });
+
+  file: File;
 
   constructor(private readonly photoService: PhotoService) {}
 
@@ -36,6 +38,7 @@ export class PhotoRegisterComponent implements OnInit {
   }
 
   handleFileInput(files: FileList) {
+    this.file = files[0];
     const reader = new FileReader();
     const fileName = files[0].name;
     const lastDot = fileName.lastIndexOf('.');
@@ -75,6 +78,14 @@ export class PhotoRegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.form.value);
+    this.photoService.saveImage(this.form.value).subscribe(
+      (e: any) => {
+        this.photoService.uploadImage(this.file, e.id).subscribe(
+          () => alert('Success'),
+          () => alert('Error')
+        );
+      },
+      () => alert('error')
+    );
   }
 }
