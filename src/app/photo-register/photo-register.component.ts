@@ -3,6 +3,8 @@ import { PhotoService } from '../photo.service';
 import { Observable } from 'rxjs';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { Route } from '@angular/compiler/src/core';
 
 @Component({
   selector: 'app-photo-register',
@@ -23,7 +25,10 @@ export class PhotoRegisterComponent implements OnInit {
 
   file: File;
 
-  constructor(private readonly photoService: PhotoService) {}
+  constructor(
+    private readonly photoService: PhotoService,
+    private readonly router: Router
+  ) {}
 
   ngOnInit() {
     this.$categories = this.photoService.getCategories().pipe(
@@ -81,7 +86,11 @@ export class PhotoRegisterComponent implements OnInit {
     this.photoService.saveImage(this.form.value).subscribe(
       (e: any) => {
         this.photoService.uploadImage(this.file, e.id).subscribe(
-          () => alert('Success'),
+          () => {
+            alert('Success');
+
+            this.router.navigate(['/']);
+          },
           () => alert('Error')
         );
       },
