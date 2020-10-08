@@ -34,7 +34,7 @@
               'bg-red-200':
                 (form.controls.name.dirty || form.controls.touched) &&
                 form.controls.name.invalid &&
-                form.controls.name.errors.required
+                form.controls.name.errors
             }"
             formControlName="name"
           />
@@ -48,6 +48,17 @@
             class="text-xs text-red-500"
           >
             Name is required.
+          </span>
+
+          <span
+            *ngIf="
+              (form.controls.name.dirty || form.controls.touched) &&
+              form.controls.name.invalid &&
+              form.controls.name.errors.minlength
+            "
+            class="text-xs text-red-500"
+          >
+            Name must have at least 10 characters.
           </span>
         </div>
       </div>
@@ -86,6 +97,16 @@
           >
             Alt name is required.
           </span>
+          <span
+            *ngIf="
+              (form.controls.alt_description.dirty || form.controls.touched) &&
+              form.controls.alt_description.invalid &&
+              form.controls.alt_description.errors.minlength
+            "
+            class="text-xs text-red-500"
+          >
+            Alt name must have at least 10 characters.
+          </span>
         </div>
       </div>
       <div class="md:flex md:items-center mb-6">
@@ -119,6 +140,16 @@ Put your photo description here!</textarea
             class="text-xs text-red-500"
           >
             Description is required.
+          </span>
+          <span
+            *ngIf="
+              (form.controls.description.dirty || form.controls.touched) &&
+              form.controls.description.invalid &&
+              form.controls.description.errors.minlength
+            "
+            class="text-xs text-red-500"
+          >
+            Description must have at least 10 characters.
           </span>
         </div>
       </div>

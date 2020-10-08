@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { Route } from '@angular/compiler/src/core';
 
 @Component({
   selector: 'app-photo-register',
@@ -16,9 +15,15 @@ export class PhotoRegisterComponent implements OnInit {
   label: string = '';
   imgURL: string | ArrayBuffer;
   form = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    alt_description: new FormControl('', Validators.required),
-    description: new FormControl('', Validators.required),
+    name: new FormControl('', [Validators.required, Validators.minLength(10)]),
+    alt_description: new FormControl('', [
+      Validators.required,
+      Validators.minLength(10),
+    ]),
+    description: new FormControl('', [
+      Validators.required,
+      Validators.minLength(10),
+    ]),
     photo: new FormControl('', Validators.required),
     categories: new FormArray([]),
   });
