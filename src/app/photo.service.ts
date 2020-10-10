@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import * as enviroment from '../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PhotoService {
-  endPoint = 'http://localhost:3000/photo/';
+  endPoint = enviroment.environment.endPoint + 'photo/';
+  category = enviroment.environment.endPoint + 'category';
 
   constructor(private readonly httpService: HttpClient) {}
 
@@ -18,7 +20,7 @@ export class PhotoService {
   }
 
   getCategories() {
-    return this.httpService.get(`http://localhost:3000/category`);
+    return this.httpService.get(this.category);
   }
 
   saveImage(image) {

@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { PhotoService } from '../photo.service';
 import { Observable } from 'rxjs';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
-import { tap } from 'rxjs/operators';
+import { tap, race, take } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'app-photo-register',
@@ -17,6 +18,8 @@ export class PhotoRegisterComponent implements OnInit {
   imgURL: string | ArrayBuffer;
   form: FormGroup;
   file: File;
+
+  isUploading = false;
 
   constructor(
     private readonly photoService: PhotoService,
@@ -60,8 +63,17 @@ export class PhotoRegisterComponent implements OnInit {
     const lastDot = fileName.lastIndexOf('.');
     const fileExtension = fileName.slice(lastDot + 1, fileName.length);
 
+    if (!this.lessorEqualThanXMB(this.file.size, 1)) {
+      this.toastr.info(
+        'Image size must be less or equal than ' + 1 + 'mb',
+        'File size'
+      );
+
+      return;
+    }
+
     if (!this.isImage(fileExtension)) {
-      alert('Only images are allowed');
+      this.toastr.info('Please select an image file', 'File type');
       return;
     }
 
@@ -76,6 +88,10 @@ export class PhotoRegisterComponent implements OnInit {
     reader.onload = (_event) => {
       this.imgURL = reader.result;
     };
+  }
+
+  lessorEqualThanXMB(size: number, mb: number) {
+    return size / 1024 / 1024 <= mb;
   }
 
   isImage(fileExtension: string) {
@@ -95,12 +111,14 @@ export class PhotoRegisterComponent implements OnInit {
   }
 
   onSubmit() {
+    this.isUploading = true;
+
     this.photoService.saveImage(this.form.value).subscribe(
-      (e: any) => {
-        this.photoService.uploadImage(this.file, e.id).subscribe(
+      (photo: any) => {
+        this.photoService.uploadImage(this.file, photo.id).subscribe(
           () => {
             this.toastr.success('Succesfully upload', 'Upload');
-
+            this.isUploading = false;
             this.router.navigate(['/']);
           },
           () => {
