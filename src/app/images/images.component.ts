@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { tap, take } from 'rxjs/operators';
 import { PhotoService } from '../photo.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-images',
@@ -13,7 +14,10 @@ export class ImagesComponent implements OnInit {
   finish: boolean;
   page = 0;
 
-  constructor(private readonly photoService: PhotoService) {}
+  constructor(
+    private readonly photoService: PhotoService,
+    private readonly toastr: ToastrService
+  ) {}
 
   ngOnInit() {
     this.getImages();
@@ -50,11 +54,12 @@ export class ImagesComponent implements OnInit {
   }
 
   downloadImage(id) {
-    this.photoService
-      .downloadImage(id)
-      .subscribe((e) =>
-        this.downloadFile(e.body, e.headers.get('Content-Type'), name)
-      );
+    this.photoService.downloadImage(id).subscribe(
+      (e) => this.downloadFile(e.body, e.headers.get('Content-Type'), name),
+      () => {
+        this.toastr.error('This file has troubles', 'Error');
+      }
+    );
   }
 
   downloadFile(data: any, type: string, name: string) {

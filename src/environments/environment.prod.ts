@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  endPoint: 'localhost:5000',
+  endPoint: 'https://gallery-nestjs.herokuapp.com/',
 };
