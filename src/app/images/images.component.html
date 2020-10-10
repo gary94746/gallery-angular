@@ -5,7 +5,11 @@
     *ngFor="let image of images | async as photos"
     class="max-w-sm rounded overflow-hidden shadow-lg mb-4 bg-white"
   >
-    <img src="{{ getUrl(image.id, '350') }}" class="w-full" />
+    <img
+      src="{{ getUrl(image.id, '350') }}"
+      (error)="displayError($event)"
+      class="w-full"
+    />
     <div class="px-6 py-4">
       <div class="font-bold text-xl mb-2 capitalize">{{ image.name }}</div>
       <p class="text-gray-700 text-base">

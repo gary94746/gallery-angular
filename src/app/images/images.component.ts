@@ -23,6 +23,10 @@ export class ImagesComponent implements OnInit {
     return this.photoService.imageUrl(id, size);
   }
 
+  displayError(event: any) {
+    event.target.src = 'assets/error.jpg';
+  }
+
   onScroll() {
     if (this.finish) return;
     this.getImages();
