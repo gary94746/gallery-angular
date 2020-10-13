@@ -1,33 +1,28 @@
 # GalleryFronted
 
-Simple gallery app with tailwind and NestJs as Backend
-
-The final result looks like:
-![Screenshot](https://github.com/gary94746/gallery-angular/blob/master/src/assets/Screenshot_20201012_202342.png)
-![screenshot1](https://github.com/gary94746/gallery-angular/blob/master/src/assets/Screenshot_20201012_202504.png)
-
+Simple gallery app with NestJs and angular in [Fronted](https://github.com/gary94746/gallery-angular)
 
 This app contains:
-- Reactive form validation
-- Responsive Design
-- Image download
-- Image size validation
-- Http comunication
+- Data Validation
+- Image resizing with sharp
+- Image download, upload
+- Files manipulation
+- Config module, async injection
+- Postgres
 
-To run this app local:
+To run this app local, make sure that you have the .env configured correctly
 ``` bash
 yarn install
-ng serve
+yarn start
 ```
-
 
 This app is also avalaible with docker
 ```bash
 # first build the docker image
-docker build -t gallery-fronted .
+docker build -t gallery-backend .
 # run the build image
-docker run --name gallery-fronted -d -p 80:80 gallery-fronted
+docker run --name gallery-backend -d -p 3000:3000 gallery-backend
 ```
 
-### Check this proyect online
-[NetlifyApp](https://gallant-meitner-416426.netlify.app/)
+This project was hosted on heroku
+
