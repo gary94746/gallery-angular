@@ -3,9 +3,8 @@
 Simple gallery app with tailwind and NestJs as Backend
 
 The final result looks like:
-[Screenshot](https://github.com/gary94746/gallery-angular/blob/master/src/assets/Screenshot_20201012_202342.png)
-
-[screenshot1](https://github.com/gary94746/gallery-angular/blob/master/src/assets/Screenshot_20201012_202504.png)
+![Screenshot](https://github.com/gary94746/gallery-angular/blob/master/src/assets/Screenshot_20201012_202342.png)
+![screenshot1](https://github.com/gary94746/gallery-angular/blob/master/src/assets/Screenshot_20201012_202504.png)
 
 
 This app contains:
