@@ -1,27 +1,25 @@
 # GalleryFronted
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.7.
+Simple gallery app with tailwind and NestJs as Backend
 
-## Development server
+The final result looks like:
+[Screenshot](https://previews.dropbox.com/p/thumb/AA-p5CDA6JYfjdFMyYMl7Ji96gbNrZ-4km_4O4LADryVS72W29H8wKVyavK9k8tndEVbB55zdV77GWeWAmwO0-xPxqKrK-DkZkbSs3ctrjESwv6hFTitT3dLKGQqedI_eaYNtuhwEqXD7xQPF821sSPQIuogpzwLBUML75In6eVzbUHUaHUBkHBnx0YchzFz2hph9sJQ50EHF2X8dEGddtRz9yNtK3x1MCPE-HXVkSzbhk1wiQz6U9t52C3PYF2bh9rikJCXgXBIrAIKybJIE7qDl6xvO8i8Sk6T3dgRaccuCw9R4i13JGp8f7KoYQAZeFZ-s0cqGC479X0EmZ1KLKFOuf40eVAObJiT9IGNMXMdmA/p.png?fv_content=true&size_mode=5)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+[screenshot1](https://previews.dropbox.com/p/thumb/AA8mZ_dhgO2xSNNM8NcVTbcPOHpVmHfEGkswJsOnSsgpijM8h3l9qSD_FNpPNPGG6CUsO_PnZZIoVmOrACXMOMPmfy7QAjC8D9r-5yivdaeUoPPedYccOeuCzJR6_zYoUi9SxYybEp_z2Zy54x-ZPxPR_Tj_JDL3whfdgvqcGLkj5ANtqpyvU_m9Eus6sgtunH3KY0mQc_nk-0PtEmEGmWKyoHEh13RQMn7cQiPv_Q1QVLxtocv3fe4c5o8WngHTz9JjlSxgUS44ehpN5VDcNIDkkquU4JA3WtRszxYOaX9khZ7fuCFf2AkSzSiSnvo6bVuz-gh_vb-FYi7GaOAzQnexvox66nW3HhNll85wq9PUQg/p.png?fv_content=true&size_mode=5)
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+This app contains:
+- Reactive form validation
+- Responsive Design
+- Image download
+- Image size validation
+- Http comunication
 
-## Build
+To run this app:
+``` bash
+yarn install
+yarn build
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+This app is also avalaible with docker
