@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  endPoint: 'productionLink',
+  endPoint: 'https://gallery-nestjs.herokuapp.com/',
 };
