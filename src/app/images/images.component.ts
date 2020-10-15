@@ -56,7 +56,7 @@ export class ImagesComponent implements OnInit {
   }
 
   downloadImage(image) {
-    this.modal.open({ title: image.name });
+    this.modal.open(image);
   }
 
   downloadFile(data: any, type: string, name: string) {

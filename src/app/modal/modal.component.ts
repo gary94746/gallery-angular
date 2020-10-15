@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ModalComponent implements OnInit {
   title: string = '';
+  sizes: (string | number)[] = [150, 250, 350, 450, 'original'];
+  imageId: string;
 
   constructor() {}
 
@@ -15,9 +17,14 @@ export class ModalComponent implements OnInit {
     overlay.addEventListener('click', this.toggleModal);
   }
 
-  open(data: { title: string }) {
-    this.title = data.title;
+  open(image: any) {
+    this.title = image.title;
+    this.imageId = image.id;
     this.toggleModal();
+  }
+
+  downloadImage(size: string | number) {
+    console.log(this.imageId, size);
   }
 
   toggleModal() {

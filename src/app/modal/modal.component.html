@@ -27,13 +27,27 @@
           </svg>
         </div>
       </div>
+
+      <p class="text-2ml mb-2">Select image size</p>
+      <div class="grid grid-cols-3 gap-4">
+        <button
+          class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"
+          *ngFor="let size of sizes"
+          (click)="downloadImage(size)"
+        >
+          <svg
+            class="fill-current w-4 h-4 mr-2"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+          >
+            <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
+          </svg>
+          <span>{{ size }}</span>
+        </button>
+      </div>
+
       <!--Footer-->
       <div class="flex justify-end pt-2">
-        <button
-          class="px-4 bg-transparent p-3 rounded-lg text-indigo-500 hover:bg-gray-100 hover:text-indigo-400 mr-2"
-        >
-          Action
-        </button>
         <button
           class="modal-close px-4 bg-indigo-500 p-3 rounded-lg text-white hover:bg-indigo-400"
           (click)="toggleModal()"
