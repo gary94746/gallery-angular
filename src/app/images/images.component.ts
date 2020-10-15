@@ -58,18 +58,4 @@ export class ImagesComponent implements OnInit {
   downloadImage(image) {
     this.modal.open(image);
   }
-
-  downloadFile(data: any, type: string, name: string) {
-    if (type == 'image') type = type.concat('/jpeg');
-    const a = document.createElement('a');
-    document.body.appendChild(a);
-    a.setAttribute('style', 'display: none');
-    let blob = new Blob([data], { type });
-    let url = window.URL.createObjectURL(blob);
-    a.href = url;
-    a.download = name;
-    a.click();
-    window.URL.revokeObjectURL(url);
-    a.remove();
-  }
 }

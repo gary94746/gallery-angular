@@ -40,8 +40,8 @@ export class PhotoService {
     return this.httpService.post(`${this.endPoint}${photoId}`, formData);
   }
 
-  downloadImage(photoId: string) {
-    return this.httpService.get(`${this.endPoint}download/${photoId}`, {
+  downloadImage(photoId: string, size: string) {
+    return this.httpService.get(`${this.endPoint}download/${photoId}/${size}`, {
       responseType: 'arraybuffer',
       observe: 'response',
     });
