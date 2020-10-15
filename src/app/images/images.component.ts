@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { tap, take } from 'rxjs/operators';
 import { PhotoService } from '../photo.service';
 import { ToastrService } from 'ngx-toastr';
+import { ModalComponent } from '../modal/modal.component';
 
 @Component({
   selector: 'app-images',
@@ -10,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./images.component.scss'],
 })
 export class ImagesComponent implements OnInit {
+  @ViewChild(ModalComponent) modal: ModalComponent;
   images = new BehaviorSubject([]);
   finish: boolean;
   page = 0;
@@ -53,13 +55,8 @@ export class ImagesComponent implements OnInit {
       .subscribe();
   }
 
-  downloadImage(id) {
-    this.photoService.downloadImage(id).subscribe(
-      (e) => this.downloadFile(e.body, e.headers.get('Content-Type'), name),
-      () => {
-        this.toastr.error('This file has troubles', 'Error');
-      }
-    );
+  downloadImage(image) {
+    this.modal.open({ title: image.name });
   }
 
   downloadFile(data: any, type: string, name: string) {
